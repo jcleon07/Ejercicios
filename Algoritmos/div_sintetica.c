@@ -42,33 +42,27 @@ int main(){
         exit(-1);
     }
 
-    int max_n = 0;
+    char temp;
     int tam[t];
-
-    for(int i = 0; i < t; i++){
-        int n;
-        printf("\nIngrese el tamano del arreglo: ");
-        scanf("%d",&n);
-
-        if (n < 4 || n > 30){
-            perror("Valor invalido");
-            exit(-1);
-        }
-
-        tam[i] = n;
-        max_n = (n > max_n) ? n : max_n;
-    }
-
-    int array[t][max_n] ;
+    int array[t][30];
     memset(array, 0, sizeof(array));
 
-    for(int i = 0; i < t; i++){
-        for(int j = 0; j < tam[i]; j++){
-            printf("\nIngrese el elemento del arreglo: ");
-            scanf("%d",&array[i][j]);
+    for (int i = 0; i < t; i++) {
+        printf("Ingrese los elementos del arreglo separados por espacio: ");
+
+        int j = 0;
+        while (scanf("%d%c", &array[i][j], &temp) == 2) {
+            j++;
+            if (temp == '\n') break;
         }
-        if (i < t-1) {printf("\n\nSiguiente arreglo\n\n");}
+        tam[i] = j;
+
+        if (tam[i] < 4 || tam[i] > 30){
+            perror("Tamaño Invalido");
+            exit(-1);
+        }
     }
+
 
     //Aplicar func
     int a[t];
@@ -79,7 +73,7 @@ int main(){
 
     for(int i = 0; i < t; i++){
         if(a[i] == -1){
-        printf("No existe n0");
+        printf("No existe n0, ");
         } else{
         printf("%d, ", a[i]);
         }
