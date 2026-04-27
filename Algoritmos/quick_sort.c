@@ -5,7 +5,7 @@ int partition(int A[],int p, int r){
     int x = A[r];
     int i = p-1;
 
-    for(int j = p; j < r-1; j++){
+    for(int j = p; j < r; j++){
         if(A[j] <= x){
             i = i+1;
             int temp = A[i];
@@ -36,7 +36,7 @@ int main (){
     
     quickSort(A,0,6);
     
-    for(int i = 0; i<6; i++){
+    for(int i = 0; i<7; i++){
         printf("%d ",A[i]);
     }
     
