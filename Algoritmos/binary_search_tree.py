@@ -1,3 +1,14 @@
+class Nodo:
+    def __init__(self, key):
+        self.key = key
+        self.left = None
+        self.right = None
+        self.parent = None
+
+class BinaryTree:
+    def __init__(self, val):
+        self.root = Nodo(val)
+
 def inorder_tree_walk(x):
     if x is not None:
         inorder_tree_walk(x.left)
@@ -111,24 +122,33 @@ def transplant(T,u,v):
     elif u == u.parent.left:
         u.parent.left = v
     else: 
-        u.p.right = v
+        u.parent.right = v
     
     if v != None:
         v.parent = u.parent
 
 
 def tree_delete_transplant(T,z):
+    # Returns the node that is effectively removed (CLRS: y).
+    y = z
+
     if z.left is None:
-        transplant(T,z,z.right)
+        transplant(T, z, z.right)
+        y = z
     elif z.right is None:
-        transplant(T,z,z.left)
+        transplant(T, z, z.left)
+        y = z
     else:
         y = tree_minimum(z.right)
-        if y != z.right:
+
+        # Si el sucesor no es z.right, primero movemos su subárbol derecho.
+        if y.parent != z:
             transplant(T, y, y.right)
             y.right = z.right
             y.right.parent = y
-        
-        transplant(T,z,y)
+
+        transplant(T, z, y)
         y.left = z.left
         y.left.parent = y
+
+    return y
