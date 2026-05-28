@@ -21,6 +21,10 @@ class Estudiante:
             else:
                 self.persuasion = random.uniform(0.51, 1)
 
+    def cambiar_postura(self):
+        per = self.persuasion
+         
+
 class Modelo:
     def __init__(self, n, espacio):
 
