@@ -14,8 +14,12 @@ class Estudiante:
         else:
             self.state = None
 
-    def ajustar_postura(self):
-            self.persuasion = random.uniform(0,1)  #Falta implementacion de ajuste segun postura del otro agente
+    def ajustar_postura(self, otro_agente):
+            post = otro_agente.postura
+            if post < 0.5:
+                self.persuasion = random.uniform(0,0.5)
+            else:
+                self.persuasion = random.uniform(0.51, 1)
 
 class Modelo:
     def __init__(self, n, espacio):
