@@ -2,9 +2,9 @@ import random
 import numpy as np
 
 class Estudiante:
-    def __init__(self, postura, persusasion, tol):
+    def __init__(self, postura, persuasion, tol):
         self.postura = postura
-        self.persuasion = self.persuasion
+        self.persuasion = persuasion
         self.tol = tol
         self.state = None
 
@@ -14,8 +14,35 @@ class Estudiante:
         else:
             self.state = None
 
-class Modelo:
-    def __init__(self, n):
-        self.num_agents = n
+    def ajustar_postura(self):
+            self.persuasion = random.uniform(0,1)  #Falta implementacion de ajuste segun postura del otro agente
 
+class Modelo:
+    def __init__(self, n, espacio):
+
+        if espacio % 2 != 0:
+            print("El tamano del espacio debe ser par") 
+            exit()
+
+        self.num_agents = n
+        self.espacio = [[None for _ in range(espacio//2) ] for _ in range(espacio//2)]
+        self.quorum = None
+
+        count = 0
+
+        for i in range(espacio//2):
+            for j in range(espacio//2):
+
+                if count >= n:
+                    break
+
+                self.espacio[i][j] = Estudiante(0.5, 0.76, 30)
+                count += 1
+
+
+    def is_quorum(self):
+        if self.num_agents < (0.5 * self.espacio) + 1:
+            quorum = False
+        else:
+            quorum = True
 
