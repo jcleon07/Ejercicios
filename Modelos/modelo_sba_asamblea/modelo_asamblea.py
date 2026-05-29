@@ -73,5 +73,43 @@ class Modelo:
 
         self.time += 1
 
-        def run():
-            
+    def metricas(self):
+        n_activos = 0
+        posturas = []
+
+        for i in range(len(self.espacio)):
+            for j in range(len(self.espacio[0])):
+
+                if self.espacio[i][j] != None and self.espacio[i][j].activo == True:
+                    n_activos += 1
+                    posturas.append(self.espacio[i][j].postura)
+        
+        prom_posturas = np.average(posturas)
+        var_posturas = np.var(posturas)
+
+        met = {
+            "tiempo": self.time,
+            "n_activos": n_activos,
+            "posturas": posturas,
+            "promedio_posturas": prom_posturas,
+            "varianza_posturas": var_posturas,
+            "quorum": self.quorum
+        }
+
+        return met
+
+    def run(self, pasos):
+        historial = []
+        
+        for i in range(pasos):
+            self.step()
+            historial.append(self.metricas())
+
+            if self.quorum == False:
+                break
+        
+        return historial
+
+
+model1 = Modelo(5, 6, 0.6, 0.5)
+hist = model1.run(3)
