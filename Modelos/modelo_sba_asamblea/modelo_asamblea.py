@@ -74,3 +74,4 @@ class Modelo:
         self.time += 1
 
         def run():
+            
