@@ -5,10 +5,14 @@ class Estudiante:
     def __init__(self, row, col):
         self.postura = random.uniform(0,1)
         self.persuasion = random.uniform(0,1)
-        self.tol = np.random.weibull(a=1.5) * 15
+        self.umbral_tolerancia = np.random.weibull(a=1.5) * 15
         self.activo = True
         self.row = row
         self.col = col
+
+    def factor_tolerancia(self,factor_pasos):
+        self.tol=np.random.weibull(a=1.5)*factor_pasos
+
 
     def tomar_palabra(self, vecinos, sigma, umb):
         for i in vecinos:
@@ -20,7 +24,7 @@ class Estudiante:
 
         if abs(diff) > umb:
             self.postura -= agente_hablante.persuasion * (diff) * np.exp(pow)
+            self.tol -= 1  # se aburre más rápido si hay desacuerdo
         else:
             self.postura += agente_hablante.persuasion * (diff) * np.exp(pow)                                                                             
         self.postura = np.clip(self.postura, 0, 1)
-
